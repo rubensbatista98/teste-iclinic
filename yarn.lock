@@ -1905,24 +1905,6 @@
     regenerator-runtime "^0.13.7"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-links@^6.1.8":
-  version "6.1.8"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-6.1.8.tgz#5fecab85a82810a40472171368cb6fddfe9373be"
-  integrity sha512-8QoyEsYqsVrf70kNyKg7cOPyzGttkYNIVJtvB+SpYAbIboNyhNy63cngyd1I72IwMoCs5CaHMciM1cAkezdOOw==
-  dependencies:
-    "@storybook/addons" "6.1.8"
-    "@storybook/client-logger" "6.1.8"
-    "@storybook/core-events" "6.1.8"
-    "@storybook/csf" "0.0.1"
-    "@storybook/router" "6.1.8"
-    "@types/qs" "^6.9.0"
-    core-js "^3.0.1"
-    global "^4.3.2"
-    prop-types "^15.7.2"
-    qs "^6.6.0"
-    regenerator-runtime "^0.13.7"
-    ts-dedent "^2.0.0"
-
 "@storybook/addon-toolbars@6.1.8":
   version "6.1.8"
   resolved "https://registry.yarnpkg.com/@storybook/addon-toolbars/-/addon-toolbars-6.1.8.tgz#ee85103853fec821c26d1c7db3afbc2c404e780c"
@@ -2192,7 +2174,7 @@
   dependencies:
     lodash "^4.17.15"
 
-"@storybook/node-logger@6.1.8", "@storybook/node-logger@^6.1.8":
+"@storybook/node-logger@6.1.8":
   version "6.1.8"
   resolved "https://registry.yarnpkg.com/@storybook/node-logger/-/node-logger-6.1.8.tgz#1308fd353c21bc01c54b9b6b58d6e936389148a7"
   integrity sha512-ov9C9eYEeZLjXwcwHtrcTTTLrG5WCH16o2AGAMeqjMEyZb3FaEH2a5CFXJufnxptxGx1UR72wABzrOvV+Epp/g==
