@@ -1,3 +1,4 @@
+import { ReactComponent as ArrowLeft } from 'assets/img/arrow-icon.svg';
 import { renderWithTheme } from 'utils/tests/helpers';
 import theme from 'styles/theme';
 
@@ -38,5 +39,13 @@ describe('<Button />', () => {
       opacity: '0.5',
       'pointer-events': 'none'
     });
+  });
+
+  test('should render a Button with icon', () => {
+    const { getByTestId } = renderWithTheme(
+      <Button icon={<ArrowLeft data-testid="icon" />}>Hello</Button>
+    );
+
+    expect(getByTestId(/icon/i)).toBeInTheDocument();
   });
 });
