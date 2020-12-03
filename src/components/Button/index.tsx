@@ -4,12 +4,18 @@ import * as S from './styles';
 
 export type ButtonProps = {
   size?: 'medium' | 'large';
-  children: React.ReactNode;
+  children?: React.ReactNode;
   uppercase?: boolean;
+  icon?: JSX.Element;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button = ({ children, ...rest }: ButtonProps) => {
-  return <S.Wrapper {...rest}>{children}</S.Wrapper>;
+const Button = ({ children, icon, ...rest }: ButtonProps) => {
+  return (
+    <S.Wrapper hasIcon={!!icon} {...rest}>
+      {icon ? icon : null}
+      {children ? <span>{children}</span> : null}
+    </S.Wrapper>
+  );
 };
 
 Button.defaultProps = {

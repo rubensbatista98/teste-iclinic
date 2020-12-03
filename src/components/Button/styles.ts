@@ -2,7 +2,7 @@ import styled, { css, DefaultTheme } from 'styled-components';
 
 import { ButtonProps } from '.';
 
-export type WrapperProps = Omit<ButtonProps, 'children'>;
+export type WrapperProps = Omit<ButtonProps, 'children'> & { hasIcon: boolean };
 
 const wrapperModifiers = {
   medium: (theme: DefaultTheme) => css`
@@ -20,11 +20,27 @@ const wrapperModifiers = {
   disabled: () => css`
     opacity: 0.5;
     pointer-events: none;
+  `,
+  withIcon: () => css`
+    svg {
+      width: 2.5rem;
+      height: 2rem;
+
+      fill: currentColor;
+
+      & + span {
+        margin-left: 1rem;
+      }
+    }
   `
 };
 
 export const Wrapper = styled.button<WrapperProps>`
-  ${({ theme, size, uppercase, disabled }) => css`
+  ${({ theme, size, uppercase, disabled, hasIcon }) => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     height: 5.6rem;
 
     font-family: ${theme.font.family};
@@ -72,5 +88,6 @@ export const Wrapper = styled.button<WrapperProps>`
     ${wrapperModifiers[size!](theme)}
     ${uppercase && wrapperModifiers.uppercase()}
     ${disabled && wrapperModifiers.disabled()}
+    ${hasIcon && wrapperModifiers.withIcon()}
   `}
 `;
