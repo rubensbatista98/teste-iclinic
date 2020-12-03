@@ -1,5 +1,7 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 
+import { ReactComponent as ArrowLeft } from 'assets/img/arrow-icon.svg';
+
 import Button, { ButtonProps } from '.';
 
 export default {
@@ -9,11 +11,14 @@ export default {
     size: {
       control: 'select'
     },
+    disabled: {
+      control: 'boolean'
+    },
     onClick: {
       action: 'Clicked!'
     },
-    disabled: {
-      control: 'boolean'
+    icon: {
+      control: ''
     }
   },
   args: {
@@ -22,3 +27,9 @@ export default {
 } as Meta;
 
 export const Default: Story<ButtonProps> = (args) => <Button {...args} />;
+
+export const WithIcon: Story<ButtonProps> = (args) => <Button {...args} />;
+
+WithIcon.args = {
+  icon: <ArrowLeft />
+};
