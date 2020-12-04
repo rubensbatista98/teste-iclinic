@@ -7,6 +7,7 @@ export type ButtonProps = {
   children?: React.ReactNode;
   uppercase?: boolean;
   icon?: JSX.Element;
+  minimal?: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = ({ children, icon, ...rest }: ButtonProps) => {
@@ -20,7 +21,8 @@ const Button = ({ children, icon, ...rest }: ButtonProps) => {
 
 Button.defaultProps = {
   size: 'medium',
-  uppercase: false
+  uppercase: false,
+  minimal: false
 };
 
 export default Button;

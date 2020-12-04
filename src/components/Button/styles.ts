@@ -32,11 +32,15 @@ const wrapperModifiers = {
         margin-left: 1rem;
       }
     }
+  `,
+  minimal: () => css`
+    background: none;
+    padding: 0 1.5rem;
   `
 };
 
 export const Wrapper = styled.button<WrapperProps>`
-  ${({ theme, size, uppercase, disabled, hasIcon }) => css`
+  ${({ theme, size, uppercase, disabled, hasIcon, minimal }) => css`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,6 +59,7 @@ export const Wrapper = styled.button<WrapperProps>`
 
     cursor: pointer;
 
+    overflow: hidden;
     position: relative;
 
     &::after {
@@ -89,5 +94,6 @@ export const Wrapper = styled.button<WrapperProps>`
     ${uppercase && wrapperModifiers.uppercase()}
     ${disabled && wrapperModifiers.disabled()}
     ${hasIcon && wrapperModifiers.withIcon()}
+    ${minimal && wrapperModifiers.minimal()}
   `}
 `;
