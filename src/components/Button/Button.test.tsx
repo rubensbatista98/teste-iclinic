@@ -48,4 +48,13 @@ describe('<Button />', () => {
 
     expect(getByTestId(/icon/i)).toBeInTheDocument();
   });
+
+  test('should render a minimalist version', () => {
+    const { getByRole } = renderWithTheme(<Button minimal>My Button</Button>);
+
+    expect(getByRole('button', { name: /my button/i })).toHaveStyle({
+      backgroundColor: 'none',
+      padding: '0 1.5rem'
+    });
+  });
 });
