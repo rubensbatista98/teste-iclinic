@@ -1,3 +1,5 @@
+import { Link, LinkProps } from 'react-router-dom';
+
 import Heading from 'components/Heading';
 import Button from 'components/Button';
 
@@ -14,7 +16,7 @@ const Home = () => {
         <S.Subtitle>FrontEnd Challenge</S.Subtitle>
       </S.Header>
 
-      <Button size="large" uppercase>
+      <Button<LinkProps> as={Link} to="/force-side" size="large" uppercase>
         Start
       </Button>
     </S.Wrapper>
