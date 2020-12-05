@@ -30,6 +30,7 @@ export default {
     medium: '3.6rem',
     large: '4.8rem',
     xlarge: '5.6rem',
+    xxlarge: '7.5rem',
     xxxlarge: '10.5rem',
     huge: '16.2rem'
   }
