@@ -1,3 +1,5 @@
+import userEvent from '@testing-library/user-event';
+
 import { ReactComponent as ArrowLeft } from 'assets/img/arrow-icon.svg';
 import { renderWithTheme } from 'utils/tests/helpers';
 import theme from 'styles/theme';
@@ -33,12 +35,24 @@ describe('<Button />', () => {
   });
 
   test('should render a disabled Button', () => {
-    const { getByRole } = renderWithTheme(<Button disabled>Hello</Button>);
+    const onClick = jest.fn();
 
-    expect(getByRole('button', { name: /hello/i })).toHaveStyle({
+    const { getByRole } = renderWithTheme(
+      <Button onClick={onClick} disabled>
+        Hello
+      </Button>
+    );
+
+    const button = getByRole('button', { name: /hello/i });
+
+    expect(button).toHaveStyle({
       opacity: '0.5',
       'pointer-events': 'none'
     });
+
+    userEvent.click(button);
+
+    expect(onClick).not.toBeCalled();
   });
 
   test('should render a Button with icon', () => {
@@ -56,5 +70,20 @@ describe('<Button />', () => {
       backgroundColor: 'none',
       padding: '0 1.5rem'
     });
+  });
+
+  test('should render Button as link', () => {
+    const HREF = '/something-page';
+
+    const { getByRole } = renderWithTheme(
+      <Button<{ href: string }> as="a" href={HREF}>
+        My Button
+      </Button>
+    );
+
+    const link = getByRole('link', { name: /my button/i });
+
+    expect(link).toBeInTheDocument();
+    expect(link).toHaveAttribute('href', HREF);
   });
 });
