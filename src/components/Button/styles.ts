@@ -34,7 +34,9 @@ const wrapperModifiers = {
     }
   `,
   minimal: () => css`
+    color: var(--color-secondary);
     background: none;
+
     padding: 0 1.5rem;
   `
 };
@@ -71,8 +73,8 @@ export const Wrapper = styled.button<WrapperProps>`
       bottom: 0;
       right: 0;
 
-      box-shadow: inset 2px 2px 10px var(--color-primary),
-        inset -2px -2px 10px var(--color-primary);
+      box-shadow: inset 2px 2px 10px currentColor,
+        inset -2px -2px 10px currentColor;
 
       opacity: 0;
 
