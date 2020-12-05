@@ -1,3 +1,5 @@
+import { Link, LinkProps } from 'react-router-dom';
+
 import Heading from 'components/Heading';
 import Button from 'components/Button';
 import { ReactComponent as ArrowLeft } from 'assets/img/arrow-icon.svg';
@@ -11,7 +13,7 @@ const ForceSide = () => {
     <S.Wrapper>
       <S.PageStyles />
 
-      <Button icon={<ArrowLeft />} minimal>
+      <Button<LinkProps> as={Link} to="/" icon={<ArrowLeft />} minimal>
         back
       </Button>
 
