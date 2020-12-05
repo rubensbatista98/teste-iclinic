@@ -1,4 +1,7 @@
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+
+import Routes from 'Routes';
 
 import GlobalStyles from 'styles/global';
 
@@ -9,7 +12,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
 
-      <h1>Hello World</h1>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
