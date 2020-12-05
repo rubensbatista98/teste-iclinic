@@ -19,6 +19,9 @@ export default {
     },
     icon: {
       control: ''
+    },
+    as: {
+      control: ''
     }
   },
   args: {
@@ -32,4 +35,14 @@ export const WithIcon: Story<ButtonProps> = (args) => <Button {...args} />;
 
 WithIcon.args = {
   icon: <ArrowLeft />
+};
+
+export const AsLink: Story<ButtonProps<{ href: string }>> = (args) => (
+  <Button {...args} />
+);
+
+AsLink.args = {
+  children: 'My Link',
+  as: 'a',
+  href: '#'
 };
