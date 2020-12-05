@@ -43,7 +43,7 @@ const wrapperModifiers = {
 
 export const Wrapper = styled.button<WrapperProps>`
   ${({ theme, size, uppercase, disabled, hasIcon, minimal }) => css`
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
 
@@ -51,6 +51,7 @@ export const Wrapper = styled.button<WrapperProps>`
 
     font-family: ${theme.font.family};
     font-weight: ${theme.font.bold};
+    text-decoration: none;
     color: var(--color-primary);
 
     background-color: var(--color-secondary);
