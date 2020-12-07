@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import { SideProvider } from 'context/SideContext';
 import Routes from 'Routes';
 
 import GlobalStyles from 'styles/global';
@@ -9,13 +10,15 @@ import theme from 'styles/theme';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
+    <SideProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
 
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
-    </ThemeProvider>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
+      </ThemeProvider>
+    </SideProvider>
   );
 }
 
