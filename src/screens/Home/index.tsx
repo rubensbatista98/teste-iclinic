@@ -1,4 +1,6 @@
-import { Link, LinkProps } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
+import { useSide } from 'context/SideContext';
 
 import Heading from 'components/Heading';
 import Button from 'components/Button';
@@ -6,6 +8,15 @@ import Button from 'components/Button';
 import * as S from './styles';
 
 const Home = () => {
+  const history = useHistory();
+  const { updateSide } = useSide();
+
+  const handleClick = () => {
+    updateSide();
+
+    history.push('/force-side');
+  };
+
   return (
     <S.Wrapper>
       <S.Header>
@@ -16,7 +27,7 @@ const Home = () => {
         <S.Subtitle>FrontEnd Challenge</S.Subtitle>
       </S.Header>
 
-      <Button<LinkProps> as={Link} to="/force-side" size="large" uppercase>
+      <Button onClick={handleClick} size="large" uppercase>
         Start
       </Button>
     </S.Wrapper>
