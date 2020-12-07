@@ -24,10 +24,6 @@ export const Spinner = styled.div.attrs({
 
     transform: translate(-50%, -50%);
 
-    :focus {
-      border-left-color: black;
-    }
-
     @keyframes spin {
       to {
         transform: translate(-50%, -50%) rotate(360deg);
