@@ -1,13 +1,36 @@
-import styled, { css, createGlobalStyle } from 'styled-components';
+import styled, {
+  DefaultTheme,
+  css,
+  createGlobalStyle
+} from 'styled-components';
 
+import { Spinner } from 'components/Spinner/';
 import { Container } from 'components/Container';
 import * as ButtonStyles from 'components/Button/styles';
 
-export const PageStyles = createGlobalStyle`
-  :root{
-    --color-primary: #2a2a2a;
-    --color-secondary: #fff;
-  }
+type pageStylesProps = {
+  side?: 'light' | 'dark';
+};
+
+const pageStylesModifiers = {
+  dark: (theme: DefaultTheme) => css`
+    :root {
+      --color-primary: ${theme.colors.black};
+      --color-secondary: ${theme.colors.white};
+    }
+  `,
+  light: (theme: DefaultTheme) => css`
+    :root {
+      --color-primary: ${theme.colors.yellow};
+      --color-secondary: ${theme.colors.black};
+    }
+  `
+};
+
+export const PageStyles = createGlobalStyle<pageStylesProps>`
+  ${({ theme, side }) => css`
+    ${!!side && pageStylesModifiers[side](theme)}
+  `}
 `;
 
 export const Wrapper = styled(Container).attrs({
@@ -30,13 +53,26 @@ export const Content = styled.div`
 
     margin: ${theme.spacings.xxxlarge} auto 0;
 
-    @media (max-width: 500px) {
-      ${ButtonStyles.Wrapper} {
-        order: 3;
-        margin-top: ${theme.spacings.medium};
+    ${Spinner} {
+      position: relative;
+
+      top: 0;
+      left: 2.5rem;
+
+      margin: 5rem auto 0;
+    }
+
+    ${ButtonStyles.Wrapper} {
+      margin-top: ${theme.spacings.medium};
+    }
+
+    @media (min-width: 500px) {
+      ${Image} {
+        margin-top: ${theme.spacings.xxlarge};
       }
 
-      ${Image} {
+      ${ButtonStyles.Wrapper} {
+        order: -1;
         margin-top: 0;
       }
     }
@@ -45,16 +81,16 @@ export const Content = styled.div`
 
 export const Image = styled.img`
   ${({ theme }) => css`
-    width: 39rem;
-    height: 39rem;
+    width: 25rem;
+    height: 25rem;
 
     background-color: var(--color-secondary);
 
     border-radius: 50%;
 
-    margin: ${theme.spacings.xxlarge} auto ${theme.spacings.xlarge};
+    margin: 0 auto ${theme.spacings.xlarge};
 
-    @media (max-width: 700px) {
+    @media (min-width: 700px) {
       width: 25rem;
       height: 25rem;
     }
