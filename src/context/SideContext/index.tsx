@@ -24,7 +24,7 @@ type SideProviderProps = {
   children: React.ReactNode;
 };
 
-type SideContextValue = {
+export type SideContextValue = {
   updateSide: () => Promise<void>;
 } & SideState;
 
