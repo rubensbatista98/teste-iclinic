@@ -233,4 +233,28 @@ describe('<ForceSide />', () => {
 
     expect(window.location.pathname).toBe('/');
   });
+
+  test('should not be possible click on button "choose you path" when is fetching data', async () => {
+    (getMasterInfo as jest.Mock).mockResolvedValue({
+      name: 'Darth Vader'
+    });
+
+    // first call to getMasterInfo
+    renderWithRouter({ callUpdate: true });
+
+    await waitForElementToBeRemoved(screen.getByLabelText(/loading/i));
+
+    userEvent.click(screen.getByRole('button', { name: /choose your path/i }));
+
+    expect(screen.getByLabelText(/loading/i)).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: /choose your path/i }));
+
+    await waitForElementToBeRemoved(screen.getByLabelText(/loading/i));
+
+    expect(
+      screen.getByRole('heading', { name: /your master is darth vader/i })
+    ).toBeInTheDocument();
+    expect(getMasterInfo).toBeCalledTimes(2);
+  });
 });
