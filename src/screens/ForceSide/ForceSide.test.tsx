@@ -1,7 +1,10 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { useSide } from 'context/SideContext';
+import { getMasterInfo } from 'utils/getMasterInfo';
 import {
   renderWithProviders,
   RenderProvidersConfig
@@ -9,18 +12,83 @@ import {
 
 import ForceSide from '.';
 
-type RenderRouterOptions = RenderProvidersConfig;
+jest.mock('utils/getMasterInfo', () => ({
+  __esModule: true,
+  getMasterInfo: jest.fn()
+}));
+
+type RenderRouterOptions = {
+  callUpdate?: boolean;
+} & RenderProvidersConfig;
 
 const renderWithRouter = (options: RenderRouterOptions = {}) => {
-  const { ...config } = options;
+  const { callUpdate, ...config } = options;
 
   window.history.pushState({}, 'Force Side', '/force-side');
 
-  return renderWithProviders(<ForceSide />, {
+  const ui = () =>
+    callUpdate ? (
+      // starts making the call to updateSide
+      <CallUpdateSide>
+        <ForceSide />
+      </CallUpdateSide>
+    ) : (
+      <ForceSide />
+    );
+
+  return renderWithProviders(ui(), {
     wrapper: Router,
     ...config
   });
 };
+
+async function testIfChangeMaster(newMaster: 'luke' | 'vader') {
+  const getMasterHeading = (name: 'luke' | 'vader') =>
+    `Your master is ${name === 'luke' ? 'Luke Skywalker' : 'Darth Vader'}`;
+
+  const firstLoadingElement = screen.getByLabelText(/loading/i);
+
+  await waitForElementToBeRemoved(firstLoadingElement);
+
+  const oldMasterHeading = screen.getByRole('heading', {
+    name: getMasterHeading(newMaster === 'luke' ? 'vader' : 'luke')
+  });
+
+  expect(oldMasterHeading).toBeInTheDocument();
+
+  const button = screen.getByRole('button', { name: /choose your path/i });
+
+  expect(button).toBeInTheDocument();
+
+  userEvent.click(button);
+
+  const secondLoadingElement = screen.getByLabelText(/loading/i);
+
+  expect(secondLoadingElement).toBeInTheDocument();
+
+  await waitForElementToBeRemoved(secondLoadingElement);
+
+  expect(oldMasterHeading).not.toBeInTheDocument();
+
+  expect(
+    screen.getByAltText(
+      `Image of ${newMaster === 'luke' ? 'Luke Skywalker' : 'Darth Vader'}`
+    )
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole('heading', { name: getMasterHeading(newMaster) })
+  ).toBeInTheDocument();
+}
+
+function CallUpdateSide({ children }: { children: React.ReactNode }) {
+  const { updateSide } = useSide();
+
+  React.useEffect(() => {
+    updateSide();
+  }, [updateSide]);
+
+  return <div>{children}</div>;
+}
 
 describe('<ForceSide />', () => {
   test('should render with loading state if is fetching data initially', () => {
@@ -92,5 +160,31 @@ describe('<ForceSide />', () => {
     ).toBeInTheDocument();
 
     expect(screen.getByAltText(/image of luke skywalker/i)).toBeInTheDocument();
+  });
+
+  test('should display the dark side screen if get Vader when the button "choose your path" is clicked', async () => {
+    (getMasterInfo as jest.Mock)
+      .mockResolvedValue({ name: 'Darth Vader' })
+      // first get Luke data
+      .mockResolvedValueOnce({
+        name: 'Luke Skywalker'
+      });
+
+    renderWithRouter({ callUpdate: true });
+
+    await testIfChangeMaster('vader');
+  });
+
+  test('should display the light side screen if get Luke when the button "choose your path" is clicked', async () => {
+    (getMasterInfo as jest.Mock)
+      .mockResolvedValue({ name: 'Luke Skywalker' })
+      // first get Vader data
+      .mockResolvedValueOnce({
+        name: 'Darth Vader'
+      });
+
+    renderWithRouter({ callUpdate: true });
+
+    await testIfChangeMaster('luke');
   });
 });
