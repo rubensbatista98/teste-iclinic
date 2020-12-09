@@ -219,4 +219,18 @@ describe('<ForceSide />', () => {
       })
     ).toBeInTheDocument();
   });
+
+  test('should go to home page when the button "back" is clicked', async () => {
+    (getMasterInfo as jest.Mock).mockResolvedValueOnce({
+      name: 'Darth Vader'
+    });
+
+    renderWithRouter({ callUpdate: true });
+
+    await waitForElementToBeRemoved(screen.getByLabelText(/loading/i));
+
+    userEvent.click(screen.getByRole('link', { name: /back/i }));
+
+    expect(window.location.pathname).toBe('/');
+  });
 });
