@@ -187,4 +187,36 @@ describe('<ForceSide />', () => {
 
     await testIfChangeMaster('luke');
   });
+
+  test('should display error message if getMasterInfo get wrong data', async () => {
+    (getMasterInfo as jest.Mock).mockResolvedValueOnce({
+      name: 'Obi-Wan Kenobi'
+    });
+
+    renderWithRouter({ callUpdate: true });
+
+    await waitForElementToBeRemoved(screen.getByLabelText(/loading/i));
+
+    expect(
+      screen.getByRole('heading', {
+        name: /sorry, we have an unexpected error/i
+      })
+    ).toBeInTheDocument();
+  });
+
+  test('should display error message if getMasterInfo throw an error', async () => {
+    (getMasterInfo as jest.Mock).mockRejectedValueOnce({
+      error: 'some error'
+    });
+
+    renderWithRouter({ callUpdate: true });
+
+    await waitForElementToBeRemoved(screen.getByLabelText(/loading/i));
+
+    expect(
+      screen.getByRole('heading', {
+        name: /sorry, we have an unexpected error/i
+      })
+    ).toBeInTheDocument();
+  });
 });
