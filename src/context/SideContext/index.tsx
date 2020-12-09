@@ -41,26 +41,26 @@ const INITIAL_STATE: SideState = {
 const SideProvider = ({ ...props }: SideProviderProps) => {
   const [sideState, dispatch] = React.useReducer(reducer, INITIAL_STATE);
 
-  async function updateSide() {
+  const updateSide = React.useCallback(async () => {
     dispatch({ type: 'updating' });
 
     try {
       const master = await getMasterInfo();
 
       const isNotLukeOrVader =
-        master.name.indexOf('Luke') < 0 || master.name.indexOf('Vader') < 0;
+        master.name.indexOf('Luke') < 0 && master.name.indexOf('Vader') < 0;
 
       if (isNotLukeOrVader) {
         dispatch({ type: 'error' });
+      } else {
+        const side = master.name.includes('Vader') ? 'dark' : 'light';
+
+        dispatch({ type: 'finished', payload: { master: master.name, side } });
       }
-
-      const side = master.name.includes('Vader') ? 'dark' : 'light';
-
-      dispatch({ type: 'finished', payload: { master: master.name, side } });
     } catch (error) {
       dispatch({ type: 'error' });
     }
-  }
+  }, [dispatch]);
 
   return (
     <SideStateContext.Provider
