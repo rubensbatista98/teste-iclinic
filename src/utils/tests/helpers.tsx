@@ -29,9 +29,9 @@ export function renderWithProviders(
   const sideProviderProps = sideProvider ? { value: sideProvider } : {};
 
   return render(
-    <ThemeProvider theme={theme}>
-      <SideProvider {...sideProviderProps}>{ui}</SideProvider>
-    </ThemeProvider>,
+    <SideProvider {...sideProviderProps}>
+      <ThemeProvider theme={theme}>{ui}</ThemeProvider>
+    </SideProvider>,
     { ...options }
   );
 }
