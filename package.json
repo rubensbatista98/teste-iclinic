@@ -20,7 +20,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
+    "test:watch": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -s ./src/assets -p 6006",
     "build-storybook": "build-storybook -s ./src/assets"
