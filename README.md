@@ -1,46 +1,64 @@
-# Getting Started with Create React App
+# Teste da iClinic
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Fiz este no projeto no intuito de praticar e aprender as tecnologias que usei para desenvolve-lo.
 
-## Available Scripts
+O projeto foi baseado em um teste para desenvolvedores front-end, feito pela empresa [iClinic](https://iclinic.com.br/).
 
-In the project directory, you can run:
+[Link para o repositório do teste](https://github.com/iclinic/challenge-front).
 
-### `yarn start`
+### Tecnologias utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [ReactJS](https://pt-br.reactjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Jest](https://jestjs.io/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Storybook](https://storybook.js.org/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Sobre
 
-### `yarn test`
+Com base em duas requisições feita à uma [API](https://swapi.dev/api/) do Star Wars que irão retornar dados do [Luke Skywalker](https://swapi.dev/api/people/1/) ou do [Darth Vader](https://swapi.dev/api/people/4/), deve ser exibido ao usuário se ele é do lado sombrio tendo Darth Vader como mestre, ou do lado da luz tendo Luke Skywalker como mestre. A primeira requisão que retorna os dados determina o que será exibido.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## UI
 
-### `yarn build`
+### [Tela 1](./ui/home.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Exibir dois cabeçalhos e um botão.
+- Ao clicar no botão, é feita as requisições à API e o usuário é levado para a segunda tela.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<div align="center" >
+ <img
+  src="./ui/home.png"
+  alt="página inicial"
+  width="600"
+ />
+</div>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### [Tela 2](./ui/force-side-mobile.png)
 
-### `yarn eject`
+- Exibir um botão para retornar a página inicial. E com base na primeira requisição finalizada, exibir uma tela escura ou clara com uma imagem do mestre (Luke Skywalker/Darth Vader), um cabeçalho informando qual é o mestre e um segundo botão.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Ao clicar no segundo botão, deve ser feita as requisições novamente e exibir as informações necessárias com base na primeira requisão finalizada.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  | Lado da Luz                     | Lado Sombrio                   |
+  | ------------------------------- | ------------------------------ |
+  | ![](./ui/light-side-screen.png) | ![](./ui/dark-side-screen.png) |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Como usar
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Após clonar o repósitorio, instale as dependências.
 
-## Learn More
+```bash
+  $ yarn install
+  # ou
+  $ npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Após finalizar a instalação das dependências, utilize um dos comandos abaixo:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `start`: sobe à aplicação em modo desenvolvimento de em `localhost:3000`
+
+- `test`: executa todos os testes
+
+- `test:watch`: executa todos os testes em modo watch
+
+- `storybook`: sobe o storybook em `localhost:6006`
