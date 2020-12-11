@@ -91,8 +91,8 @@ export const Image = styled.img`
     margin: 0 auto ${theme.spacings.xlarge};
 
     @media (min-width: 700px) {
-      width: 25rem;
-      height: 25rem;
+      width: 39rem;
+      height: 39rem;
     }
   `}
 `;
